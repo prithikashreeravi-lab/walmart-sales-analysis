@@ -1,0 +1,10 @@
+CREATE TABLE walmart_sales (
+    store INT,
+    date DATE,
+    weekly_sales DECIMAL(12,2),
+    holiday_flag INT,
+    temperature DECIMAL(5,2),
+    fuel_price DECIMAL(5,2),
+    cpi DECIMAL(10,3),
+    unemployment DECIMAL(5,2)
+);
