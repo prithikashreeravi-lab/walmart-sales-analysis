@@ -1,10 +1,11 @@
 CREATE TABLE walmart_sales (
-    store INT,
-    date DATE,
-    weekly_sales DECIMAL(12,2),
+    store INT NOT NULL,
+    date DATE NOT NULL,
+    weekly_sales DECIMAL(12,2) NOT NULL,
     holiday_flag INT,
     temperature DECIMAL(5,2),
     fuel_price DECIMAL(5,2),
     cpi DECIMAL(10,3),
-    unemployment DECIMAL(5,2)
+    unemployment DECIMAL(5,2),
+    PRIMARY KEY (store, date)
 );
