@@ -227,7 +227,51 @@ SELECT
 FROM walmart_sales;
 
 
+-- =========================================================
+-- 14.Store Performance vs Company Average
+-- =========================================================
 
+WITH company_avg AS (
+    SELECT AVG(weekly_sales) AS avg_sales
+    FROM walmart_sales
+)
+
+SELECT
+    store,
+    AVG(weekly_sales) AS store_avg_sales,
+    ROUND(
+        AVG(weekly_sales) - company_avg.avg_sales,
+        2
+    ) AS difference_from_company_avg
+FROM walmart_sales
+CROSS JOIN company_avg
+GROUP BY store, company_avg.avg_sales
+ORDER BY difference_from_company_avg DESC;
+
+
+-- =========================================================
+-- 15.Longest Consecutive Growth Streak
+-- =========================================================
+
+WITH sales_change AS (
+    SELECT
+        store,
+        date,
+        weekly_sales,
+        LAG(weekly_sales) OVER (
+            PARTITION BY store
+            ORDER BY date
+        ) AS prev_sales
+    FROM walmart_sales
+)
+
+SELECT
+    store,
+    COUNT(*) AS growth_weeks
+FROM sales_change
+WHERE weekly_sales > prev_sales
+GROUP BY store
+ORDER BY growth_weeks DESC;
 
 
 
